@@ -16,6 +16,7 @@ window.onload = function () {
         },
         gravity: 0.5,
         acceleration: 0.2,
+        platforms:10,
         posXPlatform: [24, 170, 326, 100, 246, 141, 283, 51, 220],
         initPosYPlatform: 300,
         limitPeakPlatform: 3,
@@ -24,7 +25,7 @@ window.onload = function () {
         startRespawn: 20
     }
 
-    var link = document.createElement('link');
+    let link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
     link.setAttribute('href', 'https://fonts.googleapis.com/css?family=Rubik+Mono+One&display=swap');
@@ -85,7 +86,7 @@ window.onload = function () {
         width: 10,
         height: 10,
         radius: 6,
-        active: true
+        active: false
     }
 
     let platformsArr = [];
@@ -122,7 +123,7 @@ window.onload = function () {
     setInterval(update, 1000 / settings.fps);
 
     function createLevel() {
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < settings.platforms; i++) {
             let posX = utils.getPosXPlatform();
             if (i > 0) {
                 while (posX === platformsArr[i - 1].x) {
@@ -149,7 +150,7 @@ window.onload = function () {
     function resetLevel() {
         score = 0;
         velocityLevel = settings.initialVelocity;
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < platformsArr.length; i++) {
             let posX = utils.getPosXPlatform();
             if (i > 0) {
                 while (posX === platformsArr[i - 1].x) {
@@ -224,7 +225,7 @@ window.onload = function () {
         });
 
         //Star
-      /*  if (star.active) {
+        if (star.active) {
             ctx.fillStyle = settings.colors.star;
             ctx.save();
             ctx.beginPath();
@@ -240,7 +241,7 @@ window.onload = function () {
             ctx.closePath();
             ctx.fill();
             ctx.restore();
-        }*/
+        }
 
         //Heroe
         ctx.beginPath();
